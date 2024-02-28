@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "tailwindcss": "^3.4.1"
+  },
+  "name": "perpustakaan",
+  "version": "1.0.0",
+  "main": "tailwind.config.js",
+  "devDependencies": {},
+  "scripts": {
+    "dev": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
