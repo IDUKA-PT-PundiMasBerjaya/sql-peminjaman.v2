@@ -60,7 +60,13 @@
                 echo "<td>" . $walikelas = $userAmbilData['wali_kelas'] . "</td>";
                 echo "<td>" . $kursi = $userAmbilData['kursi'] . "</td>";
                 echo "<td>" . $meja = $userAmbilData['meja'] . "</td>";
-                echo "<td>" . $gambar_kelas = $userAmbilData['gambar_kelas'] . "</td>";
+                echo "<td>";
+                        $data = mysqli_query($kon, "SELECT * FROM kelas WHERE id_kelas = '{$userAmbilData['id_kelas']}'");
+                        while ($row = mysqli_fetch_array($data)) {
+                            echo "<a href='javascript:void(0);' onclick=\"window.open(../../perpustakaan/aset/{$row['gambar_kelas']}', '_blank');\">
+                                    <img src='../../perpustakaan/aset/{$row['gambar_kelas']}' alt='Gambar Kelas' width='110' height='150'></a>";
+                        }
+                    "</td>";
                 echo "<td> 
                         | <a href='../../kelas/update/update.php?id=" .$userAmbilData['id_kelas']. "'>Edit</a> |
                         <a href='../../kelas/view/view.php?id=" .$userAmbilData['id_kelas']. "'>View</a> |

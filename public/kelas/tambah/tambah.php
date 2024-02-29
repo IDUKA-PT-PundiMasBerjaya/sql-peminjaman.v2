@@ -54,10 +54,6 @@
                 <td><input type="text" name="meja" required></td>
             </tr>
             <tr>
-                <td>Gambar</td>
-                <td><input type="file" name="gambar" required></td>
-            </tr>
-            <tr>
                 <td>Ketua Kelas</td>
                 <td>
                     <select id="idsiswa" name="idsiswa">
@@ -80,6 +76,10 @@
 				        <?php endwhile; ?>
 			        </select>
                 </td>
+            </tr>
+            <tr>
+                <td>Gambar Kelas</td>
+                <td><input type="file" name="gambar_kelas" required></td>
             </tr>
         </table>
         <input type="submit" name="submit" value="Tambah Data">

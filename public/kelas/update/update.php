@@ -7,12 +7,12 @@
     if (isset($_POST['update'])) {
         $id = $_POST['id'];
         $namakelas = $_POST['namakelas'];
-        $idguru = $_POST['walikelas'];
-        $idsiswa = $_POST['ketuakelas'];
+        $idsiswa = $_POST['idsiswa'];
+        $idguru = $_POST['idguru'];
         $kursi = $_POST['kursi'];
         $meja = $_POST['meja'];
 
-        $message = $kelasController->updateKelas($id, $namakelas, $idguru, $idsiswa, $kursi, $meja);
+        $message = $kelasController->updateKelas($id, $namakelas, $idsiswa, $idguru, $kursi, $meja);
         echo $message;
 
         header("Location: ../../dashboard/data/dskelas.php");
@@ -20,8 +20,8 @@
 
     $id = null;
     $namakelas = null;
-    $idguru = null;
     $idsiswa = null;
+    $idguru = null;
     $kursi = null;
     $meja = null;
 
@@ -32,10 +32,10 @@
         if ($result) {
             $id = $result['id_kelas'];
             $namakelas = $result['namakelas'];
-            $idguru = $result['guru_idguru'];
             $idsiswa = $result['siswa_idsiswa'];
+            $idguru = $result['guru_idguru'];
             $kursi = $result['kursi'];
-            $meja = $result['meja'];;
+            $meja = $result['meja'];
         } else {
             echo "ID Tidak Valid";
         }
@@ -46,36 +46,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Update Kelas</title>
+    <title>Update Data Kelas</title>
 </head>
 <body>
-    <h1>Update Data kelas</h1>
+    <h1>Update Data Kelas</h1>
     <a href="../../dashboard/data/dskelas.php">Home</a>
-    <form action="update.php" method="POST", name="update" enctype="multipart/form-data">
+    <form action="update.php" method="post" name="update" enctype="multipart/form-data">
         <table border="1">
             <tr>
-                <td>ID</td>
-                <td><input type="text" name="id" value="<?php echo $id; ?>" readonly"></td>
+                <td>ID Kelas</td>
+                <td><input type="text" name="id" value="<?php echo $id; ?>" readonly></td>
             </tr>
             <tr>
                 <td>Nama Kelas</td>
-                <td><input type="text" name="namakelas" value="<?php echo $namakelas; ?>"></td>
-            </tr>
-            <tr>
-                <td>Kursi</td>
-                <td><input type="text" name="kursi" value="<?php echo $kursi; ?>"></td>
-            </tr>
-            <tr>
-                <td>Meja</td>
-                <td><input type="text" name="meja" value="<?php echo $meja; ?>"></td>
-            </tr>
-            <tr>
-                <td>Wali Kelas</td>
-                <td><input type="text" name="idsiswa" value="<?php echo $idsiswa; ?>"></td>
+                <td><input type="text" name="namakelas" value="<?php echo $namakelas; ?>" required></td>
             </tr>
             <tr>
                 <td>Ketua Kelas</td>
-                <td><input type="text" name="idguru" value="<?php echo $idguru; ?>"></td>
+                <td><input type="text" name="idsiswa" value="<?php echo $idsiswa; ?>" required"></td>
+            </tr>
+            <tr>
+                <td>Wali Kelas</td>
+                <td><input type="text" name="idguru" value="<?php echo $idguru; ?>" required"></td>
+            </tr>
+            <tr>
+                <td>Kursi</td>
+                <td><input type="text" name="kursi" value="<?php echo $kursi; ?>" required"></td>
+            </tr>
+            <tr>
+                <td>Meja</td>
+                <td><input type="text" name="meja" value="<?php echo $meja; ?>" required"></td>
             </tr>
             <tr>
                 <td><input type="hidden" name="id" value="<?php echo $id; ?>"></td>

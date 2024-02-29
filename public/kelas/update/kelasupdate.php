@@ -8,8 +8,8 @@
 			$this->kon = $connection;
 		}
 
-		public function updateKelas($id, $namakelas, $idsiswa, $idguru, $kursi, $meja,) {
-			$result = mysqli_query($this->kon, "UPDATE kelas SET namakelas = '$namakelas', siswa_idsiswa = '$idsiswa', guru_idguru = '$idguru', kursi = '$kursi', meja = '$meja', WHERE id_kelas = '$id'");
+		public function updateKelas($id, $namakelas, $idsiswa, $idguru, $kursi, $meja) {
+			$result = mysqli_query($this->kon, "UPDATE kelas SET namakelas = '$namakelas', siswa_idsiswa = '$idsiswa', guru_idguru = '$idguru', kursi = '$kursi', meja = '$meja' WHERE id_kelas = '$id'");
 
 			if ($result) {
 				return "Sukses meng-update data.";
