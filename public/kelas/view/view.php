@@ -37,11 +37,6 @@
                 <td><?php echo $meja; ?></td>
             </tr>
             <tr>
-                <td>Gambar Kelas</td>
-                <td>: </td>
-                <td><?php echo $gambar_kelas; ?></td>
-            </tr>
-            <tr>
                 <td>ID Guru</td>
                 <td>: </td>
                 <td><?php echo $idguru; ?></td>
@@ -50,6 +45,19 @@
                 <td>ID Siswa</td>
                 <td>: </td>
                 <td><?php echo $idsiswa; ?></td>
+            </tr>
+            <tr>
+                <td>Gambar Kelas</td>
+                <td>: </td>
+                <td>
+                    <?php 
+                    $data = mysqli_query($kon, "SELECT * FROM kelas WHERE id_kelas = $id");
+                    while ($row = mysqli_fetch_array($data)) :
+                    ?>
+                        <a href="#" onclick="window.open('../aset/<?php echo $row['gambar_kelas']; ?>', '_blank');"></a>
+                        <img src="../aset/<?php echo $row['gambar_kelas']; ?>" alt="<?php echo $row['gambar_kelas']; ?>" width="240" height="160">
+                    <?php endwhile; ?>
+                </td>
             </tr>
         </table>
     </form>

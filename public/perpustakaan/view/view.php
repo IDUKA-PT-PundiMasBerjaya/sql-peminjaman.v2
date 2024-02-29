@@ -43,14 +43,22 @@
                 <td><?php echo $stok; ?></td>
             </tr>
             <tr>
-                <td>Gambar</td>
-                <td>: </td>
-                <td><?php echo $gambar; ?></td>
-            </tr>
-            <tr>
                 <td>Mata Pelajaran</td>
                 <td>: </td>
                 <td><?php echo $mata_pelajaran ?></td>
+            </tr>
+            <tr>
+                <td>Gambar</td>
+                <td>: </td>
+                <td>
+                    <?php 
+                    $data = mysqli_query($kon, "SELECT * FROM buku WHERE id_buku = $id");
+                    while ($row = mysqli_fetch_array($data)) :
+                    ?>
+                        <a href="#" onclick="window.open('../aset/<?php echo $row['gambar']; ?>', '_blank');"></a>
+                        <img src="../aset/<?php echo $row['gambar']; ?>" alt="<?php echo $row['gambar']; ?>">
+                    <?php endwhile; ?>
+                </td>
             </tr>
         </table>
     </form>

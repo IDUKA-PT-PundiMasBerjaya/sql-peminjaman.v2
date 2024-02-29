@@ -63,8 +63,8 @@
                 echo "<td>";
                         $data = mysqli_query($kon, "SELECT * FROM kelas WHERE id_kelas = '{$userAmbilData['id_kelas']}'");
                         while ($row = mysqli_fetch_array($data)) {
-                            echo "<a href='javascript:void(0);' onclick=\"window.open(../../perpustakaan/aset/{$row['gambar_kelas']}', '_blank');\">
-                                    <img src='../../perpustakaan/aset/{$row['gambar_kelas']}' alt='Gambar Kelas' width='110' height='150'></a>";
+                            echo "<a href='javascript:void(0);' onclick=\"window.open(../../kelas/aset/{$row['gambar_kelas']}', '_blank');\">
+                                    <img src='../../kelas/aset/{$row['gambar_kelas']}' alt='Gambar Kelas' width='240' height='160'></a>";
                         }
                     "</td>";
                 echo "<td> 
