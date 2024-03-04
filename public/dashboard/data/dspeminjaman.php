@@ -69,7 +69,6 @@
                         echo "<td>" . $tglkembali = $userAmbilData['tanggal_kembali'] . "</td>";
                         echo "<td>
                                 | <a href='../../peminjaman/view/view.php?id_peminjaman=$id'>View</a> |
-                                <a href='../../peminjaman/#?id_peminjaman=$id'>Update</a> | 
                             </td>";
                     echo "</tr>";
                 }
