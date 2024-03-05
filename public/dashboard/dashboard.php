@@ -22,7 +22,7 @@
     <h1>Halaman Dashboard</h1>
     |<a href="data/dsperpustakaan.php"> Perpustakaan </a>|
     |<a href="data/dspeminjaman.php"> Peminjaman </a>| 
-    |<a href="data/dspeminjamanbuku.php"> Data Peminjaman Buku </a>|
+    |<a href="data/dspeminjaman_buku.php"> Data Peminjaman Buku </a>|
     <br><br>
     |<a href="data/dssiswa.php"> Data Siswa </a>|
     |<a href="data/dsguru.php"> Data Guru </a>|
