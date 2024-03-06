@@ -16,7 +16,6 @@
 	$pdf->Cell(30, 7, 'Penulis', 1, 0, 'C');
 	$pdf->Cell(90, 7, 'Keterangan', 1, 0, 'C');
 	$pdf->Cell(20, 7, 'Stok', 1, 0, 'C');
-	$pdf->Cell(30, 7, 'Gambar', 1, 0, 'C');
 	$pdf->Cell(28, 7, 'ID Mata Pelajaran', 1, 0, 'C');
 
 	$pdf->Cell(10, 7, '', 0, 1);
@@ -31,7 +30,6 @@
 		$pdf->Cell(30, 6, $d['penulis'], 1, 0, 'C');
 		$pdf->Cell(90, 6, $d['keterangan'], 1, 0, 'C');
 		$pdf->Cell(20, 6, $d['stok'], 1, 0, 'C');
-		$pdf->Cell(30, 6, $d['gambar'], 1, 0, 'C');
 		$pdf->Cell(28, 6, $d['matapelajaran_idpelajaran'], 1, 0, 'C');
         $pdf->Ln();
 	}
