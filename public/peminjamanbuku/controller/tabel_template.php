@@ -28,7 +28,7 @@
 
         if ($num > 0) {
             while ($row = mysqli_fetch_array($ambildata)) {
-                $peminjamanID = $row['peminjaman_id'];
+                $peminjamanID = $row['id_peminjaman'];
                 $rowSpanCounts[$peminjamanID][] = $row;
             }
 
