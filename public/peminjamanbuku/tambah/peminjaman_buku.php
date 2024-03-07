@@ -1,7 +1,7 @@
 <?php 
     include_once("../../../config/koneksi.php");
 
-    class TammbahBukuController {
+    class TambahBukuController {
         private $kon;
 
         public function __construct($connection) {
@@ -28,22 +28,21 @@
                 if ($stokBuku === false) {
                     return "Stok barang tidak mencukupi";
                 }
+             
+                $insertData = mysqli_query($this->kon, "INSERT INTO peminjaman_buku(id_peminjaman, jumlah_buku, buku_id_buku) VALUES ('$id_peminjaman', '$jumlah', '$buku_id_buku')");
 
-                $insertData = mysqli_query($this->kon, "INSERT INTO peminjaman_buku (id_peminjaman, jumlah_buku, buku_id_buku)
-                                                        VALUES ('$id_peminjaman', '$jumlah', '$buku_id_buku')");
-                
                 if (!$insertData) {
-                    return "Gagal menyimpan data. Error : " . mysqli_error($this->kon);
+                    return "Gagal menyimpan data. Error: " . mysqli_error($this->kon);
                 }
             }
-            return "Data berhasil disimpan.";
+            return "Data berhasil disimpan";
         }
 
         private function cekStokBuku($buku_id_buku, $jumlah) {
-            $query = mysqli_query ($this->kon, "SELECT stok FROM buku WHERE id_buku = '$buku_id_buku");
-            $data = mysqli_fetch_assoc($query);
+            $query = mysqli_query($this->kon, "SELECT stok FROM buku WHERE id_buku = '$buku_id_buku'");
+            $dadta = mysqli_fetch_assoc($query);
 
-            if ($data['stok'] >= $jumlah) {
+            if ($dadta['stok'] >= $jumlah) {
                 return true;
             } else {
                 return false;

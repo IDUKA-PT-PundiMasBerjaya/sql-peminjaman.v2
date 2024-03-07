@@ -46,7 +46,7 @@
                         $firstRow = false;
                     }
                         echo "<td>" . $userAmbilData['nama_buku'] . "</td>";
-                        echo "<td><img src='../../perpustakaan/aset/" . $userAmbilData['gambar_buku'] . "' width='100' height='100'></td>";
+                        echo "<td><img src='../../perpustakaan/aset/" . $userAmbilData['gambar_buku'] . "' width='110' height='150'></td>";
                         echo "<td>" . $userAmbilData['jumlah_buku'] . "</td>";
                         echo "<td>" . $userAmbilData['stok'] . "</td>";
                         echo "<td>" . $userAmbilData['tanggal_pinjam'] . "</td>";
