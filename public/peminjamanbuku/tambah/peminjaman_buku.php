@@ -40,9 +40,9 @@
 
         private function cekStokBuku($buku_id_buku, $jumlah) {
             $query = mysqli_query($this->kon, "SELECT stok FROM buku WHERE id_buku = '$buku_id_buku'");
-            $dadta = mysqli_fetch_assoc($query);
+            $data = mysqli_fetch_assoc($query);
 
-            if ($dadta['stok'] >= $jumlah) {
+            if ($data['stok'] >= $jumlah) {
                 return true;
             } else {
                 return false;

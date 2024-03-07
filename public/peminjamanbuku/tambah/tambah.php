@@ -4,7 +4,7 @@
 
     $peminjamanBukuController = new TambahBukuController($kon);
 
-    $dataPeminjaman = "SELECT peminjaman.id_peminjaman,
+    $dataPeminjaman = "SELECT   peminjaman.id_peminjaman,
                         CASE
                             WHEN siswa.nama IS NOT NULL THEN siswa.nama
                             WHEN guru.nama IS NOT NULL THEN guru.nama
@@ -37,7 +37,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Tambah Peminjaman Buku</title>
-
+</head>
+<body>
+    <h1>Tambah Data Peminjaman Buku</h1>
+    <a href="../../dashboard/data/dspeminjaman_buku.php">Home</a>
+    <form action="tambah.php" method="post" name="tambahpeminjamanbuku" enctype="multipart/form-data" onsubmit="return confirmSubmit()">
+        <div class="table-container">
+            <table>
+                <tr> <th colspan="2">ID Peminjaman</th> </tr>
+                <tr>
+                    <td>
+                        <select id="id_peminjaman" name="id_peminjaman" style="width: 100%;">
+                            <?php if (mysqli_num_rows($hasilPeminjaman) > 0) : ?>
+                                <option value="" disabled selected>Pilih ID Peminjaman</option>
+                                <?php while ($row = mysqli_fetch_assoc($hasilPeminjaman)) : ?>
+                                    <option value="" <?php echo $row['id_peminjaman']; ?>>
+                                        <?php echo $row['id_peminjaman'] . " - " . $row['namapeminjaman']; ?>
+                                    </option>
+                                <?php endwhile; ?>
+                            <?php else : ?>
+                                <option value="" disabled selected>Tambahkan data peminjaman terlebih dahulu</option>
+                            <?php endif; ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>ID Barang</th>
+                    <th>Jumlah</th>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="buku_id_buku" name="buku_id_buku[]" style="width: 100%">
+                            <?php if (mysqli_num_rows($hasilBuku) > 0) : ?>
+                                <option value="" disabled selected>Pilih Buku</option>
+                                <?php while ($row = mysqli_fetch_assoc($hasilBuku)) : ?>
+                                    <option value="<?php echo $row['id_buku']; ?>">
+                                        <?php echo $row['id_buku'] . ' - ' . $row['judul']; ?>
+                                    </option>
+                                <?php endwhile; ?>
+                            <?php else : ?>
+                                <option value="" disabled selected>tambahkan data barang terlebih dahulu</option>
+                            <?php endif; ?>
+                        </select>
+                    </td>
+                    <td><input type="number" name="jumlah_buku[]" style="width: 100%;"></td>
+                </tr>
+            </table>
+        </div>
+        <button type="button" class="add-row-button" onclick="addRow()">Tambah Barang</button>
+        <input type="submit" name="submit" value="Tambah Data">
+    </form>
+    <?php if (isset($message) && strpos($message, 'Stok barang tidak mencukupi') !== false): ?>
+        <div class="error-message" style="color: red;">
+            <?php echo $message; ?>
+        </div>
+    <?php endif; ?>
     <script>
         function addRow() {
             var table = document.querySelector('table');
@@ -83,7 +137,7 @@
             errorMessage.classList.add('error-message');
             errorMessage.textContent = message;
             errorMessage.style.color = 'red';
-            codument.body.appendChild(errorMessage);
+            document.body.appendChild(errorMessage);
         }
 
         function confirmSubmit() {
@@ -96,60 +150,5 @@
             }
         }
     </script>
-</head>
-<body>
-    <h1>Tambah Data peminjaman Buku</h1>
-    <a href="../../dashboard/data/dspeminjaman_buku.php">Home</a>
-    <form action="tambah.php" method="post" name="tambahpeminjamanbuku" enctype="multipart/form-data" onsubmit="return confirmSubmit()">
-        <div class="table-container">
-            <table>
-                <tr> <th colspan="2">ID Peminjaman</th> </tr>
-                <tr>
-                    <td>
-                        <select id="id_peminjaman" name="id_peminjaman" style="width: 100%;">
-                            <?php if (mysqli_num_rows($hasilPeminjaman) > 0) :?>
-                                <option value="" disabled selected>Pilih ID Peminjaman</option>
-                                <?php while ($row = mysqli_fetch_assoc($hasilPeminjaman)) : ?>
-                                    <option value="" <?php echo $row['id_peminjaman']; ?>>
-                                        <?php echo $row['id_peminjaman'] . " - " . $row['namapeminjaman']; ?>
-                                    </option>
-                                <?php endwhile; ?>
-                            <?php else : ?>
-                                <option value="" disabled selected>Tambahkan data peminjaman terlebih dahulu</option>
-                            <?php endif; ?>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>ID Barang</th>
-                    <th>Jumlah</th>
-                </tr>
-                <tr>
-                    <td>
-                        <select id="buku_id_buku" name="buku_id_buku[]" style="width: 100%">
-                            <?php if (mysqli_num_rows($hasilBuku) > 0) : ?>
-                                <option value="" disabled selected>Pilih Buku</option>
-                                <?php while ($row = mysqli_fetch_assoc($hasilBuku)) : ?>
-                                    <option value="<?php echo $row['id_buku']; ?>">
-                                        <?php echo $row['id_buku'] . ' - ' . $row['judul']; ?>
-                                    </option>
-                                <?php endwhile; ?>
-                            <?php else : ?>
-                                <option value="" disabled selected>tambahkan data barang terlebih dahulu</option>
-                            <?php endif; ?>
-                        </select>
-                    </td>
-                    <td><input type="number" name="jumlah_buku[]" style="width: 100%;"></td>
-                </tr>
-            </table>
-        </div>
-        <button type="button" class="add-row-button" onclick="addRow()">Tambah Barang</button>
-        <input type="submit" name="submit" id="" value="Tambah Data">
-    </form>
-    <?php if (isset($message) && strpos($message, 'Stok barang tidak mencukupi') !== false): ?>
-        <div class="error-message" style="color: red;">
-            <?php echo $message; ?>
-        </div>
-    <?php endif; ?>
 </body>
 </html>
