@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2024 at 04:44 AM
+-- Generation Time: Mar 12, 2024 at 04:45 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -42,9 +42,9 @@ CREATE TABLE `buku` (
 --
 
 INSERT INTO `buku` (`id_buku`, `judul`, `penulis`, `keterangan`, `stok`, `gambar`, `matapelajaran_idpelajaran`) VALUES
-(1, 'Bermain dengan Internet Of Things & Big Data', 'Dhoto', 'Pembahasan tentang Internet of Things & Big Data', 40, 'bermain dengan iot & big data.jpeg', 1),
-(2, 'PDP-1 Manual', 'DEC', 'Manual for Digital Equipment Corp (DEC)', 8, 'pdp-1 manual book.jpeg', 2),
-(3, 'Macintosh Book References', 'Apple', 'A Book about Macintosh Manual', 12, 'macintosh book references.png', 2);
+(1, 'Bermain dengan Internet Of Things & Big Data', 'Dhoto', 'Pembahasan tentang Internet of Things & Big Data', 39, 'bermain dengan iot & big data.jpeg', 1),
+(2, 'PDP-1 Manual', 'DEC', 'Manual for Digital Equipment Corp (DEC)', 5, 'pdp-1 manual book.jpeg', 2),
+(3, 'Macintosh Book References', 'Apple', 'A Book about Macintosh Manual', 6, 'macintosh book references.png', 2);
 
 -- --------------------------------------------------------
 
@@ -92,9 +92,9 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id_kelas`, `namakelas`, `kursi`, `meja`, `gambar_kelas`, `guru_idguru`, `siswa_idsiswa`) VALUES
-(1, 'XI PPLG 3', 38, 38, NULL, 1, 1),
-(2, 'XI PPLG 2', 37, 37, NULL, 3, 2),
-(3, 'XI PPLG 1', 39, 39, NULL, 2, 4);
+(1, 'XI PPLG 1', 37, 37, 'gambar kelas 1.jpg', 5, 6),
+(2, 'XI PPLG 2', 38, 38, 'gambar kelas 2.jpeg', 2, 5),
+(3, 'XI PPLG 3', 39, 39, 'gambar kelas 3.jpg', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -114,7 +114,9 @@ CREATE TABLE `matapelajaran` (
 
 INSERT INTO `matapelajaran` (`idpelajaran`, `namapelajaran`, `guru_idguru`) VALUES
 (1, 'Robotika', 1),
-(2, 'Mikrotik', 2);
+(2, 'Mikrotik', 2),
+(3, 'Informatika', 4),
+(4, '3D Desainer', 5);
 
 -- --------------------------------------------------------
 
@@ -130,6 +132,15 @@ CREATE TABLE `peminjaman` (
   `siswa_idsiswa` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `peminjaman`
+--
+
+INSERT INTO `peminjaman` (`id_peminjaman`, `tanggal_pinjam`, `tanggal_kembali`, `guru_idguru`, `siswa_idsiswa`) VALUES
+(1, '2024-03-01', '2024-03-03', 1, NULL),
+(2, '2024-03-01', '2024-03-08', NULL, 4),
+(3, '2024-03-01', '2024-03-05', 4, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -141,6 +152,17 @@ CREATE TABLE `peminjaman_buku` (
   `jumlah_buku` int(11) DEFAULT NULL,
   `buku_id_buku` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Triggers `peminjaman_buku`
+--
+DELIMITER $$
+CREATE TRIGGER `peminjaman` AFTER INSERT ON `peminjaman_buku` FOR EACH ROW BEGIN
+	UPDATE buku SET stok = stok - NEW.jumlah_buku
+    WHERE id_buku = NEW.buku_id_buku;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -155,6 +177,17 @@ CREATE TABLE `pengembalian_buku` (
   `buku_id_buku` int(11) DEFAULT NULL,
   `peminjaman_id_peminjaman` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Triggers `pengembalian_buku`
+--
+DELIMITER $$
+CREATE TRIGGER `pengembalian` AFTER INSERT ON `pengembalian_buku` FOR EACH ROW BEGIN 
+	UPDATE buku SET stok = stok + NEW.jumlah_buku
+    WHERE id_buku = NEW.buku_id_buku;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -180,7 +213,8 @@ INSERT INTO `siswa` (`idsiswa`, `nama`, `alamat`, `email`, `no_hp`, `users_id`) 
 (2, 'Enno ', 'Batam', 'rivetchan@gmail.com', '085162538471', 2),
 (3, 'Denif', 'Batam', 'denifgaming123@gmail.com', '085554', 4),
 (4, 'Hamza', 'Atlantis', 'hamza@gmail.com', '0812341', 3),
-(5, 'Arfi', 'Batam', 'arfi@gmail.com', '0814234', 5);
+(5, 'Arfi', 'Batam', 'arfi@gmail.com', '0814234', 5),
+(6, 'Danudenta', 'Batam', 'danu@gmail.com', '0123128', 6);
 
 -- --------------------------------------------------------
 
@@ -203,7 +237,8 @@ INSERT INTO `users` (`id`, `username`, `password`) VALUES
 (2, 'Rivet', '123'),
 (3, 'ryuu', '123'),
 (4, 'kaze', '123'),
-(5, 'kanaeru', '123');
+(5, 'kanaeru', '123'),
+(6, 'sunwokong', '123');
 
 --
 -- Indexes for dumped tables
@@ -249,7 +284,6 @@ ALTER TABLE `peminjaman`
 -- Indexes for table `peminjaman_buku`
 --
 ALTER TABLE `peminjaman_buku`
-  ADD PRIMARY KEY (`id_peminjaman`),
   ADD KEY `buku_id_buku` (`buku_id_buku`);
 
 --

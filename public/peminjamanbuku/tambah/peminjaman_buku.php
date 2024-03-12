@@ -10,15 +10,14 @@
         
         public function TambahDataPeminjamanBuku($data) {
             $id_peminjaman = $data['id_peminjaman'];
-            $jumlah_array = (array) $data['jumlah_buku']; 
-            $id_buku_array = (array) $data['buku_id_buku']; 
+            $jumlah_array = $data['jumlah_buku']; 
+            $id_buku_array = $data['buku_id_buku']; 
         
-            if (empty($id_buku_array) || empty($jumlah_array) || !is_numeric($id_peminjaman)) {
-                return "Gagal menyimpan data, Peminjaman ID tidak valid atau jumlah buku tidak valid.";
+            if (empty($id_peminjaman) || !is_numeric($id_peminjaman)) {
+                return "Gagal menyimpan data, Peminjaman ID tidak valid.";
             }
         
             foreach ($id_buku_array as $key => $buku_id_buku) {
-                // Periksa apakah $jumlah_array memiliki kunci yang sesuai
                 $jumlah = $jumlah_array[$key];
         
                 if (!is_numeric($jumlah)) {
