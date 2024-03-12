@@ -1,5 +1,5 @@
 <a href="../../peminjamanbuku/tambah/tambah.php">| Tambah Data Buku |</a>
-<a href="../../peminjamanbuku/"> Cetak |</a>
+<a href="../../peminjamanbuku/cetak.php" target="_blank"> Cetak |</a>
 <a href="../../../public/dashboard/dashboard.php"> Home |</a>
 <form action="../../dashboard/data/dspeminjaman_buku.php" method="get">
     <label>Tampilkan :</label>
@@ -13,7 +13,7 @@
 <table border="1">
     <tr>
         <th> No </th>
-        <th> Paminjaman ID Barang </th>
+        <th> Peminjaman ID Barang </th>
         <th> Nama Peminjam </th>
         <th> Nama Buku </th>
         <th> Gambar </th>
@@ -54,7 +54,7 @@
                         if ($key === 0) {
                             echo "<td rowspan='{$rowSpanCount}'>";
                             if (isset($userAmbilData['id_peminjaman'])) {
-                                echo "<a href='cetak.php?id_peminjaman={$userAmbilData['id_peminjaman']}'>Cetak</a>";
+                                echo "<a href='../../peminjamanbuku/cetak/cetak.php?id_peminjaman={$userAmbilData['id_peminjaman']}'>Cetak</a>";
                             }
                             echo "</td>";
                         }
