@@ -4,19 +4,16 @@
 
     $peminjamanBukuController = new TambahBukuController($kon);
 
-    $dataPeminjaman = "SELECT   peminjaman.id_peminjaman,
-                        CASE
+    $dataPeminjaman = "SELECT peminjaman.id_peminjaman,
+                        CASE    
                             WHEN siswa.nama IS NOT NULL THEN siswa.nama
                             WHEN guru.nama IS NOT NULL THEN guru.nama
                         END AS namapeminjaman
-                        FROM
-                        peminjaman
-                        LEFT JOIN 
-                        siswa ON peminjaman.siswa_idsiswa = siswa.idsiswa
-                        LEFT JOIN 
-                        guru ON peminjaman.guru_idguru = guru.idguru
-                       WHERE peminjaman.id_peminjaman NOT IN (SELECT DISTINCT id_peminjaman FROM peminjaman_buku)";
-
+                        FROM Peminjaman
+                        LEFT JOIN Siswa ON peminjaman.siswa_idsiswa = siswa.idsiswa
+                        LEFT JOIN Guru ON peminjaman.guru_idguru = guru.idguru
+                        WHERE peminjaman.id_peminjaman NOT IN (SELECT DISTINCT id_peminjaman FROM peminjaman_buku)";
+    
     $hasilPeminjaman = mysqli_query($kon, $dataPeminjaman);
     $dataBuku = "SELECT id_buku, judul FROM buku";
     $hasilBuku = mysqli_query($kon, $dataBuku);
@@ -43,16 +40,16 @@
     <a href="../../dashboard/data/dspeminjaman_buku.php">Home</a>
     <form action="tambah.php" method="post" name="tambahpeminjamanbuku" enctype="multipart/form-data" onsubmit="return confirmSubmit()">
         <div class="table-container">
-            <table>
+            <table border="1">
                 <tr> <th colspan="2">ID Peminjaman</th> </tr>
                 <tr>
                     <td>
-                        <select id="id_peminjaman" name="id_peminjaman" style="width: 100%;">
+                        <select name="id_peminjaman" id="id_peminjaman" style="width: 100%;">
                             <?php if (mysqli_num_rows($hasilPeminjaman) > 0) : ?>
                                 <option value="" disabled selected>Pilih ID Peminjaman</option>
                                 <?php while ($row = mysqli_fetch_assoc($hasilPeminjaman)) : ?>
-                                    <option value="" <?php echo $row['id_peminjaman']; ?>>
-                                        <?php echo $row['id_peminjaman'] . " - " . $row['namapeminjaman']; ?>
+                                    <option value="<?php echo $row['id_peminjaman']; ?>">
+                                        <?php echo $row['id_peminjaman'] . ' - ' . $row['namapeminjaman']; ?>
                                     </option>
                                 <?php endwhile; ?>
                             <?php else : ?>
@@ -67,7 +64,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <select id="buku_id_buku" name="buku_id_buku[]" style="width: 100%">
+                        <select name="buku_id_buku" id="buku_id_buku[]" style="width: 100%;">
                             <?php if (mysqli_num_rows($hasilBuku) > 0) : ?>
                                 <option value="" disabled selected>Pilih Buku</option>
                                 <?php while ($row = mysqli_fetch_assoc($hasilBuku)) : ?>
@@ -76,16 +73,16 @@
                                     </option>
                                 <?php endwhile; ?>
                             <?php else : ?>
-                                <option value="" disabled selected>tambahkan data barang terlebih dahulu</option>
+                                <option value="" disabled selected>Tambahkan data Barang terlebih dahulu</option>
                             <?php endif; ?>
                         </select>
                     </td>
-                    <td><input type="number" name="jumlah_buku[]" style="width: 100%;"></td>
+                    <td><input type="number" name="jumlah_buku[]" id=""></td>
                 </tr>
             </table>
         </div>
         <button type="button" class="add-row-button" onclick="addRow()">Tambah Barang</button>
-        <input type="submit" name="submit" value="Tambah Data">
+        <input type="submit" name="submit" id="" value="Tambah Data">
     </form>
     <?php if (isset($message) && strpos($message, 'Stok barang tidak mencukupi') !== false): ?>
         <div class="error-message" style="color: red;">
@@ -96,16 +93,16 @@
         function addRow() {
             var table = document.querySelector('table');
             var lastRow = table.rows[table.rows.length - 1].cloneNode(true);
-            var selects = lastRow.getElementByTagName('select');
-            var inputs = lastRow.getElementByTagName('input');
+            var selects = lastRow.getElementsByTagName('select');
+            var inputs = lastRow.getElementsByTagName('input');
 
-            for (var i = 0; 1 < selects.length; i++) {
+            for (var i = 0; i < selects.length; i++) {
                 selects[i].selectedIndex = 0;
             }
 
             for (var i = 0; i < inputs.length; i++) {
                 if (inputs[i].type === 'number') {
-                    console.log('Jumlah:' , inputs[i].value);
+                    console.log('Jumlah: ', inputs[i].value);
                     inputs[i].value = 0;
                 } else {
                     inputs[i].value = '';
@@ -120,9 +117,10 @@
             var deleteButton = document.createElement('button');
             deleteButton.type = 'button';
             deleteButton.textContent = 'X';
-            deleteButton.onclick = function() {
+            deleteButton.onclick = function () {
                 table.removeChild(lastRow);
             };
+
             lastRow.appendChild(deleteButton);
             table.appendChild(lastRow);
 
@@ -141,13 +139,8 @@
         }
 
         function confirmSubmit() {
-            var confirmation = confirm("Data yang sudah tersimpan tidak bisa di edit");
-
-            if (confirmation) {
-                return true;
-            } else {
-                return false;
-            }
+            var confirmation = confirm("Data yang sudah tersimpan tidak bisa diubah. Apakah Anda yakin ingin melanjutkan?");
+            return confirmation;
         }
     </script>
 </body>
