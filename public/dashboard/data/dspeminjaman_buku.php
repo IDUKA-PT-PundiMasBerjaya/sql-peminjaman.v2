@@ -37,10 +37,7 @@
     }
 
     $query .= " ORDER BY peminjaman_buku.id_peminjaman DESC LIMIT $start, $perPage";
-    $ambildata = mysqli_query($kon, $query);
-    if (!$ambildata) {
-        die('Error: ' . mysqli_error($kon));
-    }
+    $ambildata = mysqli_query($kon, $query) or die(mysqli_error($kon));
     $num = mysqli_num_rows($ambildata);
 ?>
 <!DOCTYPE html>
