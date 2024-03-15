@@ -12,14 +12,13 @@
 </form>
 <table border="1">
     <tr>
-        <th> No Pengembalian </th>
-        <th> ID Peminjaman </th>
+        <th> No </th>
+        <th> ID Pengembalian </th>
         <th> Nama Peminjam </th>
         <th> Nama Buku </th>
-        <th> Gambar </th>
+        <th> Tanggal Pengembalian </th>
         <th> Jumlah </th>
-        <th> Sisa </th>
-        <th> Tanggal Kembali </th>
+        <th> Gambar </th>
         <th> Aksi </th>
     </tr>
     <?php 
@@ -40,16 +39,15 @@
                 foreach ($rows as $key => $userAmbilData) {
                     echo "<tr>";
                     if ($firstRow) {
+                        echo "<td rowspan='{$rowSpanCount}'>" . $no++ . "</td>";
                         echo "<td rowspan='{$rowSpanCount}'>" . $userAmbilData['id_pengembalian'] . "</td>";
-                        echo "<td rowspan='{$rowSpanCount}'>" . $userAmbilData['peminjaman_id_peminjaman'] . "</td>";
                         echo "<td rowspan='{$rowSpanCount}'>" . $userAmbilData['namapeminjaman'] . "</td>";
                         $firstRow = false;
                     }
                         echo "<td>" . $userAmbilData['nama_buku'] . "</td>";
-                        echo "<td><img src='../../perpustakaan/aset/" . $userAmbilData['gambar_buku'] . "' width='110' height='150'></td>";
-                        echo "<td>" . $userAmbilData['jumlah_buku'] . "</td>";
-                        echo "<td>" . $userAmbilData['stok'] . "</td>";
                         echo "<td>" . $userAmbilData['tanggal_pengembalian'] . "</td>";
+                        echo "<td>" . $userAmbilData['jumlah_buku'] . "</td>";
+                        echo "<td><img src='../../perpustakaan/aset/" . $userAmbilData['gambar_buku'] . "' width='110' height='150'></td>";
 
                         if ($key === 0) {
                             echo "<td rowspan='{$rowSpanCount}'>";
