@@ -38,6 +38,8 @@
         ];
 
         $message = $pengembalianBukuController->TambahDataPengembalianBuku($data);
+        header("Location: tambah.php");
+        exit;
     }
 ?>
 <!DOCTYPE html>
