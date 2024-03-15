@@ -1,6 +1,6 @@
 <?php 
     include_once("../../../config/koneksi.php");
-class TambahBukuController {
+class TambahDataController {
         private $kon;
         public function __construct($connection) {
             $this->kon = $connection;

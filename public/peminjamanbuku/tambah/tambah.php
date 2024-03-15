@@ -1,7 +1,7 @@
 <?php 
 include_once("../../../config/koneksi.php");
 include_once("peminjaman_buku.php");
-$peminjamanBukuController = new TambahBukuController($kon);
+$peminjamanBukuController = new TambahDataController($kon);
 //Mengambil data peminjaman
 $dataPeminjaman = "SELECT peminjaman.id_peminjaman,
                         CASE
@@ -44,20 +44,20 @@ $hasilBuku = mysqli_query($kon, $dataBuku);
             <table>
                 <tr> <th colspan="2">ID Peminjaman</th></tr>
                 <tr>
-                <td>
-                    <select id="id_peminjaman" name="id_peminjaman" style="width: 100%;">
-                        <?php if (mysqli_num_rows($hasilPeminjaman) > 0) : ?>
-                            <option value="" disabled selected> Pilih ID Peminjaman </option>
-                                <?php while ($row = mysqli_fetch_assoc($hasilPeminjaman)) : ?>
-                                    <option value="<?php echo $row['id_peminjaman']; ?>">
-                                        <?php echo $row['id_peminjaman'] . ' - ' . $row['namapeminjaman']; ?>
-                                    </option>
-                                <?php endwhile; ?>
-                        <?php else : ?>
-                            <option value="" disabled selected> Tambahkan data peminjaman terlebih dahulu</option>
-                        <?php endif; ?>
-                    </select>
-                </td>
+                    <td>
+                        <select id="id_peminjaman" name="id_peminjaman" style="width: 100%;">
+                            <?php if (mysqli_num_rows($hasilPeminjaman) > 0) : ?>
+                                <option value="" disabled selected> Pilih ID Peminjaman </option>
+                                    <?php while ($row = mysqli_fetch_assoc($hasilPeminjaman)) : ?>
+                                        <option value="<?php echo $row['id_peminjaman']; ?>">
+                                            <?php echo $row['id_peminjaman'] . ' - ' . $row['namapeminjaman']; ?>
+                                        </option>
+                                    <?php endwhile; ?>
+                            <?php else : ?>
+                                <option value="" disabled selected> Tambahkan data peminjaman terlebih dahulu</option>
+                            <?php endif; ?>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th>ID Buku</th>
