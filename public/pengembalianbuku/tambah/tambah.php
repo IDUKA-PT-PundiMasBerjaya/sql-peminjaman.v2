@@ -61,7 +61,7 @@
                 </tr>
                 <tr>
                     <td>
-                    <select id="peminjaman_id_peminjaman" name="peminjaman_id_peminjaman" style="width: 100%;" onchange="fillTwoInputs()">
+                        <select id="peminjaman_id_peminjaman" name="peminjaman_id_peminjaman" style="width: 100%;" onchange="fillTwoInputs()">
                             <?php if (mysqli_num_rows($hasilPengembalian) > 0) : ?>
                                 <option value="" disabled selected> Pilih ID Peminjaman </option>
                                     <?php while ($row = mysqli_fetch_assoc($hasilPengembalian)) : ?>
