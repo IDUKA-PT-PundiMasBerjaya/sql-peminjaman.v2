@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2024 at 04:45 AM
+-- Generation Time: Mar 15, 2024 at 08:03 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -42,9 +42,13 @@ CREATE TABLE `buku` (
 --
 
 INSERT INTO `buku` (`id_buku`, `judul`, `penulis`, `keterangan`, `stok`, `gambar`, `matapelajaran_idpelajaran`) VALUES
-(1, 'Bermain dengan Internet Of Things & Big Data', 'Dhoto', 'Pembahasan tentang Internet of Things & Big Data', 39, 'bermain dengan iot & big data.jpeg', 1),
-(2, 'PDP-1 Manual', 'DEC', 'Manual for Digital Equipment Corp (DEC)', 5, 'pdp-1 manual book.jpeg', 2),
-(3, 'Macintosh Book References', 'Apple', 'A Book about Macintosh Manual', 6, 'macintosh book references.png', 2);
+(1, 'Bermain dengan Internet Of Things & Big Data', 'Dhoto', 'Pembahasan tentang Internet of Things & Big Data', 51, 'bermain dengan iot & big data.jpeg', 1),
+(2, 'PDP-1 Manual', 'DEC', 'Manual for Digital Equipment Corp (DEC)', 30, 'pdp-1 manual book.jpeg', 2),
+(3, 'Macintosh Book References', 'Apple', 'A Book about Macintosh Manual', 26, 'macintosh book references.png', 2),
+(4, 'IBM 5150 Guide to Operations', 'IBM', 'A guide book to operate an IBM 5150 Personal Computer', 18, 'IBM_5150_Guide_to_Operations_6322510_1984-04.jpg', 2),
+(5, 'IBM 5170 Installation and Setup', 'IBM', 'A guide book on how to Installation in IBM 5170 Personal Computer', 12, 'IBM_5170_Installation_and_Setup_1502491_1984-03.jpg', 2),
+(6, 'Micromouse', 'IEEE UCSD', 'A book about micromouse', 27, 'micromouse.jpg', 1),
+(7, 'Learning Modern Linux: A Handbook for the Cloud Native Practitioner', 'Michael Hauselblas', 'Everything you need to know about Linux', 22, '81n+DpnxtTL._AC_UF1000,1000_QL80_.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -139,7 +143,8 @@ CREATE TABLE `peminjaman` (
 INSERT INTO `peminjaman` (`id_peminjaman`, `tanggal_pinjam`, `tanggal_kembali`, `guru_idguru`, `siswa_idsiswa`) VALUES
 (1, '2024-03-01', '2024-03-03', 1, NULL),
 (2, '2024-03-01', '2024-03-08', NULL, 4),
-(3, '2024-03-01', '2024-03-05', 4, NULL);
+(3, '2024-03-01', '2024-03-05', 4, NULL),
+(4, '2024-03-01', '2024-03-14', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -152,6 +157,20 @@ CREATE TABLE `peminjaman_buku` (
   `jumlah_buku` int(11) DEFAULT NULL,
   `buku_id_buku` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `peminjaman_buku`
+--
+
+INSERT INTO `peminjaman_buku` (`id_peminjaman`, `jumlah_buku`, `buku_id_buku`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(2, 2, 3),
+(3, 1, 1),
+(3, 1, 2),
+(3, 1, 3),
+(4, 1, 6),
+(4, 2, 7);
 
 --
 -- Triggers `peminjaman_buku`
@@ -174,17 +193,17 @@ CREATE TABLE `pengembalian_buku` (
   `id_pengembalian` int(11) NOT NULL,
   `jumlah_buku` int(11) DEFAULT NULL,
   `tanggal_pengembalian` date DEFAULT NULL,
-  `buku_id_buku` int(11) DEFAULT NULL,
-  `peminjaman_id_peminjaman` int(11) DEFAULT NULL
+  `buku_id_buku` int(11) NOT NULL,
+  `peminjaman_id_peminjaman` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Triggers `pengembalian_buku`
 --
 DELIMITER $$
-CREATE TRIGGER `pengembalian` AFTER INSERT ON `pengembalian_buku` FOR EACH ROW BEGIN 
+CREATE TRIGGER `pengembalian` AFTER INSERT ON `pengembalian_buku` FOR EACH ROW BEGIN
 	UPDATE buku SET stok = stok + NEW.jumlah_buku
-    WHERE id_buku = NEW.buku_id_buku;
+	WHERE id_buku = NEW.buku_id_buku;
 END
 $$
 DELIMITER ;
@@ -290,9 +309,9 @@ ALTER TABLE `peminjaman_buku`
 -- Indexes for table `pengembalian_buku`
 --
 ALTER TABLE `pengembalian_buku`
-  ADD PRIMARY KEY (`id_pengembalian`),
-  ADD KEY `buku_id_buku` (`buku_id_buku`),
-  ADD KEY `peminjaman_id_peminjaman` (`peminjaman_id_peminjaman`);
+  ADD KEY `fk_pengembalian_buku_buku1_idx` (`buku_id_buku`),
+  ADD KEY `fk_pengembalian_buku_peminjaman1_idx` (`peminjaman_id_peminjaman`),
+  ADD KEY `idx_id_pengembalian` (`id_pengembalian`);
 
 --
 -- Indexes for table `siswa`
@@ -347,8 +366,8 @@ ALTER TABLE `peminjaman_buku`
 -- Constraints for table `pengembalian_buku`
 --
 ALTER TABLE `pengembalian_buku`
-  ADD CONSTRAINT `pengembalian_buku_ibfk_1` FOREIGN KEY (`buku_id_buku`) REFERENCES `buku` (`id_buku`),
-  ADD CONSTRAINT `pengembalian_buku_ibfk_2` FOREIGN KEY (`peminjaman_id_peminjaman`) REFERENCES `peminjaman` (`id_peminjaman`);
+  ADD CONSTRAINT `fk_pengembalian_buku_buku1` FOREIGN KEY (`buku_id_buku`) REFERENCES `buku` (`id_buku`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_pengembalian_buku_peminjaman1` FOREIGN KEY (`peminjaman_id_peminjaman`) REFERENCES `peminjaman` (`id_peminjaman`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `siswa`
