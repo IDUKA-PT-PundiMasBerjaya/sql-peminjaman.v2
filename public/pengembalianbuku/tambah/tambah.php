@@ -117,24 +117,27 @@
             var selects = lastRow.getElementsByTagName('select');
             var inputs = lastRow.getElementsByTagName('input');
 
+            // Atur ulang properti name untuk input agar unik
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].value = '';
+                inputs[i].name = inputs[i].name.replace(/\[(\d+)\]/g, function(match, p1) {
+                    var index = parseInt(p1) + 1;
+                    return '[' + index + ']';
+                });
+            }
+
+            // Hapus nilai dari select
             for (var i = 0; i < selects.length; i++) {
                 selects[i].selectedIndex = 0;
             }
-            //Membuat baris baru
-            for (var i = 0; i < inputs.length; i++) {
-                if (inputs[i].type === 'number') {
-                    console.log('Jumlah:', inputs[i].value);
-                    inputs[i].value = 0;
-                } else {
-                    inputs[i].value = '';
-                }
-            }
-            //Hapus tombol hapus jika sudah ada 
+
+            // Hapus tombol hapus jika sudah ada
             var existingDeleteButton = lastRow.querySelector('button');
             if (existingDeleteButton) {
                 lastRow.removeChild(existingDeleteButton);
             }
-            //Tambahkan tombol Hapus
+
+            // Tambahkan tombol Hapus
             var deleteButton = document.createElement('button');
             deleteButton.type = 'button';
             deleteButton.textContent = 'X';
@@ -143,7 +146,8 @@
             };
             lastRow.appendChild(deleteButton);
             table.appendChild(lastRow);
-            //Menghapus pesan kesalahan jika ada
+
+            // Menghapus pesan kesalahan jika ada
             var existingErrorMessage = document.querySelector('.error-message');
             if (existingErrorMessage) {
                 existingErrorMessage.remove();
