@@ -7,7 +7,7 @@ $pdf->AddPage();
 
 $pdf->SetFont('Times', 'B', 13);
 $pdf->Cell(0, 15, '', 0, 1);
-$pdf->Cell(250, 10, 'Data Guru', 0, 0, 'R');
+$pdf->Cell(250, 10, 'Data Pengembalian Buku', 0, 0, 'R');
 
 $pdf->Cell(10, 17, '', 0, 1);	
 $pdf->SetFont('Times', 'B', 9);
@@ -15,7 +15,7 @@ $pdf->Cell(10, 7, 'No', 1, 0, 'C');
 $pdf->Cell(30, 7, 'ID Pengembalian', 1, 0, 'C');
 $pdf->Cell(40, 7, 'Nama Peminjam', 1, 0, 'C');
 $pdf->Cell(110, 7, 'Nama Buku', 1, 0, 'C');
-$pdf->Cell(40, 7, 'Tanggal Pengembalian', 1, 0, 'C');
+$pdf->Cell(30, 7, 'Tgl. Pengembalian', 1, 0, 'C');
 $pdf->Cell(27, 7, 'Jumlah', 1, 0, 'C');
 
 $pdf->Cell(10, 7, '', 0, 1);
@@ -73,7 +73,7 @@ if ($num > 0) {
             }
 
             $pdf->Cell(110, 6, $userAmbilData['nama_buku'], 1, 0, 'C');
-            $pdf->Cell(40, 6, $userAmbilData['tanggal_pengembalian'], 1, 0, 'C');
+            $pdf->Cell(30, 6, $userAmbilData['tanggal_pengembalian'], 1, 0, 'C');
             $pdf->Cell(27, 6, $userAmbilData['jumlah_buku'], 1, 1, 'C');
         }
     }

@@ -7,7 +7,7 @@
 
     $pdf->SetFont('Times', 'B', 13);
     $pdf->Cell(0, 15, '', 0, 1);
-    $pdf->Cell(250, 10, 'Data Guru', 0, 0, 'R');
+    $pdf->Cell(250, 10, 'Data Peminjaman Buku', 0, 0, 'R');
 
     $pdf->Cell(10, 17, '', 0, 1);	
     $pdf->SetFont('Times', 'B', 9);
