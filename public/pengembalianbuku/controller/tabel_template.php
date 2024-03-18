@@ -1,5 +1,5 @@
 <a href="../../pengembalianbuku/tambah/tambah.php">| Tambah Data Buku |</a>
-<a href="../../pengembalianbuku/" target="_blank">| Cetak |</a>
+<a href="../../pengembalianbuku/cetak.php" target="_blank">| Cetak |</a>
 <a href="../../../public/dashboard/dashboard.php">| Home |</a>
 <form action="../../dashboard/data/dspengembalian_buku.php" method="get">
     <label>Tampilkan :</label>
