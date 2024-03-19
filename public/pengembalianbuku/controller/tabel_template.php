@@ -52,7 +52,7 @@
                         if ($key === 0) {
                             echo "<td rowspan='{$rowSpanCount}'>";
                             if (isset($userAmbilData['id_pengembalian'])) {
-                                echo "<a href='../../pengembalianbuku/cetak/cetak.php?id_pengembalian={$userAmbilData['id_pengembalian']}'>Cetak</a>";
+                                echo "<a href='../../pengembalianbuku/cetak/cetak.php?id_pengembalian={$userAmbilData['id_pengembalian']}' target='_blank'>Cetak</a>";
                             }
                             echo "</td>";
                         }
