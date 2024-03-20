@@ -19,7 +19,8 @@
                 buku.gambar AS gambar_buku,
                 pengembalian_buku.tanggal_pengembalian,
                 peminjaman.id_peminjaman AS peminjaman_id_peminjaman,
-                pengembalian_buku.denda
+                pengembalian_buku.denda,
+                DATEDIFF(pengembalian_buku.tanggal_pengembalian, peminjaman.tanggal_kembali) AS telat_hari
                 FROM
                 pengembalian_buku
                 JOIN
