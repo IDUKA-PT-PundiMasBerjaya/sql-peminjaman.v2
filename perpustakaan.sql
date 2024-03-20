@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2024 at 08:03 AM
+-- Generation Time: Mar 20, 2024 at 03:56 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -42,13 +42,13 @@ CREATE TABLE `buku` (
 --
 
 INSERT INTO `buku` (`id_buku`, `judul`, `penulis`, `keterangan`, `stok`, `gambar`, `matapelajaran_idpelajaran`) VALUES
-(1, 'Bermain dengan Internet Of Things & Big Data', 'Dhoto', 'Pembahasan tentang Internet of Things & Big Data', 51, 'bermain dengan iot & big data.jpeg', 1),
-(2, 'PDP-1 Manual', 'DEC', 'Manual for Digital Equipment Corp (DEC)', 30, 'pdp-1 manual book.jpeg', 2),
-(3, 'Macintosh Book References', 'Apple', 'A Book about Macintosh Manual', 26, 'macintosh book references.png', 2),
-(4, 'IBM 5150 Guide to Operations', 'IBM', 'A guide book to operate an IBM 5150 Personal Computer', 18, 'IBM_5150_Guide_to_Operations_6322510_1984-04.jpg', 2),
-(5, 'IBM 5170 Installation and Setup', 'IBM', 'A guide book on how to Installation in IBM 5170 Personal Computer', 12, 'IBM_5170_Installation_and_Setup_1502491_1984-03.jpg', 2),
-(6, 'Micromouse', 'IEEE UCSD', 'A book about micromouse', 27, 'micromouse.jpg', 1),
-(7, 'Learning Modern Linux: A Handbook for the Cloud Native Practitioner', 'Michael Hauselblas', 'Everything you need to know about Linux', 22, '81n+DpnxtTL._AC_UF1000,1000_QL80_.jpg', 3);
+(1, 'Bermain dengan Internet Of Things & Big Data', 'Dhoto', 'Pembahasan tentang Internet of Things & Big Data', 52, 'bermain dengan iot & big data.jpeg', 1),
+(2, 'PDP-1 Manual', 'DEC', 'Manual for Digital Equipment Corp (DEC)', 32, 'pdp-1 manual book.jpeg', 2),
+(3, 'Macintosh Book References', 'Apple', 'A Book about Macintosh Manual', 29, 'macintosh book references.png', 2),
+(4, 'IBM 5150 Guide to Operations', 'IBM', 'A guide book to operate an IBM 5150 Personal Computer', 20, 'IBM_5150_Guide_to_Operations_6322510_1984-04.jpg', 2),
+(5, 'IBM 5170 Installation and Setup', 'IBM', 'A guide book on how to Installation in IBM 5170 Personal Computer', 14, 'IBM_5170_Installation_and_Setup_1502491_1984-03.jpg', 2),
+(6, 'Micromouse', 'IEEE UCSD', 'A book about micromouse', 29, 'micromouse.jpg', 1),
+(7, 'Learning Modern Linux: A Handbook for the Cloud Native Practitioner', 'Michael Hauselblas', 'Everything you need to know about Linux', 24, '81n+DpnxtTL._AC_UF1000,1000_QL80_.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -194,8 +194,21 @@ CREATE TABLE `pengembalian_buku` (
   `jumlah_buku` int(11) DEFAULT NULL,
   `tanggal_pengembalian` date DEFAULT NULL,
   `buku_id_buku` int(11) NOT NULL,
-  `peminjaman_id_peminjaman` int(11) NOT NULL
+  `peminjaman_id_peminjaman` int(11) NOT NULL,
+  `denda` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pengembalian_buku`
+--
+
+INSERT INTO `pengembalian_buku` (`id_pengembalian`, `jumlah_buku`, `tanggal_pengembalian`, `buku_id_buku`, `peminjaman_id_peminjaman`, `denda`) VALUES
+(1, 1, '2024-03-20', 1, 1, 0),
+(2, 1, '2024-03-20', 2, 2, 0),
+(2, 1, '2024-03-20', 4, 2, 0),
+(3, 1, '2024-03-20', 3, 3, 15000),
+(3, 1, '2024-03-20', 5, 3, 15000),
+(3, 1, '2024-03-20', 7, 3, 15000);
 
 --
 -- Triggers `pengembalian_buku`
