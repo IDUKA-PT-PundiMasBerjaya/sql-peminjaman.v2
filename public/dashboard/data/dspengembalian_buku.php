@@ -18,7 +18,8 @@
                 buku.stok,
                 buku.gambar AS gambar_buku,
                 pengembalian_buku.tanggal_pengembalian,
-                peminjaman.id_peminjaman AS peminjaman_id_peminjaman
+                peminjaman.id_peminjaman AS peminjaman_id_peminjaman,
+                pengembalian_buku.denda
                 FROM
                 pengembalian_buku
                 JOIN

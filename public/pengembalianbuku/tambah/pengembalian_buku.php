@@ -22,8 +22,19 @@
                     return "Gagal menyimpan data, Jumlah bukan bilangan.";
                 }
 
-                $insertData = mysqli_query($this->kon, "INSERT INTO pengembalian_buku(id_pengembalian, jumlah_buku, tanggal_pengembalian, buku_id_buku, peminjaman_id_peminjaman)
-                                                        VALUES ('$id_peminjaman', '$jumlah', '$tanggal_pengembalian', '$buku_id_buku', '$id_peminjaman')");
+                $result = mysqli_query($this->kon, "SELECT tanggal_kembali FROM peminjaman WHERE id_peminjaman = '$id_peminjaman'");
+                $row = mysqli_fetch_assoc($result);
+                $tanggal_kembali_peminjaman = $row['tanggal_kembali'];
+
+                $perbedaan_hari = floor(strtotime($tanggal_pengembalian) - strtotime($tanggal_kembali_peminjaman)) / (60 * 60 * 24);
+
+                $denda = 0;
+                if ($perbedaan_hari > 0) {
+                    $denda = $perbedaan_hari * 1000;
+                }
+
+                $insertData = mysqli_query($this->kon, "INSERT INTO pengembalian_buku(id_pengembalian, jumlah_buku, tanggal_pengembalian, buku_id_buku, peminjaman_id_peminjaman, denda)
+                                                        VALUES ('$id_peminjaman', '$jumlah', '$tanggal_pengembalian', '$buku_id_buku', '$id_peminjaman', '$denda')");
 
                 if (!$insertData) {
                     return "Gagal menyimpan data. Error : " . mysqli_error($this->kon);

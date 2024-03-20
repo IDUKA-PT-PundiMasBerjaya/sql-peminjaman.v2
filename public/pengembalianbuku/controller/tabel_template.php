@@ -15,10 +15,11 @@
         <th> No </th>
         <th> ID Pengembalian </th>
         <th> Nama Peminjam </th>
-        <th> Nama Buku </th>
         <th> Tanggal Pengembalian </th>
+        <th> Nama Buku </th>
         <th> Jumlah </th>
         <th> Gambar </th>
+        <th> Denda </th>
         <th> Aksi </th>
     </tr>
     <?php 
@@ -41,13 +42,15 @@
                     if ($firstRow) {
                         echo "<td rowspan='{$rowSpanCount}'>" . $no++ . "</td>";
                         echo "<td rowspan='{$rowSpanCount}'>" . $userAmbilData['id_pengembalian'] . "</td>";
-                        echo "<td rowspan='{$rowSpanCount}'>" . $userAmbilData['namapeminjaman'] . "</td>";
+                        echo "<td rowspan='{$rowSpanCount}'>" . $userAmbilData['namapeminjaman'] . "</td>";      
+                        echo "<td rowspan='{$rowSpanCount}'>" . $userAmbilData['tanggal_pengembalian'] . "</td>";
                         $firstRow = false;
                     }
                         echo "<td>" . $userAmbilData['nama_buku'] . "</td>";
-                        echo "<td>" . $userAmbilData['tanggal_pengembalian'] . "</td>";
                         echo "<td>" . $userAmbilData['jumlah_buku'] . "</td>";
                         echo "<td><img src='../../perpustakaan/aset/" . $userAmbilData['gambar_buku'] . "' width='110' height='150'></td>";
+                        echo "<td> Rp. " . $userAmbilData['denda'] . "</td>";
+
 
                         if ($key === 0) {
                             echo "<td rowspan='{$rowSpanCount}'>";
