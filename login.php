@@ -39,7 +39,8 @@
         <label for="username">Username: </label>
         <input type="text" name="username" required><br><br>
         <label for="password">Password: </label>
-        <input type="password" name="password" required><br><br>
+        <input type="password" name="password" required><br>
+        <p>Tidak Punya Akun? <span><a href="public/register/tambah.php">Register</a></span></p>
         <input type="submit" value="Login">
     </form>
 </body>
