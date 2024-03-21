@@ -7,8 +7,8 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $username = mysqli_real_escape_string($kon, $_POST['username']);
+        $password = mysqli_real_escape_string($kon, $_POST['password']);
 
         $sql = "SELECT id, username, password FROM users WHERE username = '$username' AND password = '$password'";
         $result = $kon->query($sql);
