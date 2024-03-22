@@ -12,7 +12,7 @@
     <form action="dsbukuminat.php" method="get">
         <label>Cari: </label>
         <input type="text" name="cari">
-        <input type="submit" name="Cari">
+        <input type="submit" name="Cari" value="Cari">
     </form>
     <?php 
         if (isset($_GET['cari'])) {
@@ -30,14 +30,14 @@
                                                     SUM(p.jumlah_buku) as total_pinjaman
                                                     FROM peminjaman_buku p
                                                     JOIN buku b ON p.buku_id_buku = b.id_buku
-                                                    GROUP BY p.buku_id_buku, b.judul
-                                                    WHERE p.buku_id_buku LIKE '%".$cari."% OR b.judul LIKE '%".$cari."%'");
+                                                    WHERE p.buku_id_buku LIKE '%$cari%' OR b.judul LIKE '%$cari%'
+                                                    GROUP BY p.buku_id_buku, b.judul");
             } else {
                 $ambildata = mysqli_query($kon, "SELECT p.buku_id_buku, b.judul, SUM(p.jumlah_buku) as total_pinjaman
                                                     FROM peminjaman_buku p
                                                     JOIN buku b ON p.buku_id_buku = b.id_buku
                                                     GROUP BY p.buku_id_buku, b.judul
-                                                    ORDER BY total_pinjaman DESC;");
+                                                    ORDER BY total_pinjaman DESC");
                 $num = mysqli_num_rows($ambildata);
             }
         ?>
@@ -49,20 +49,24 @@
             <th> Peminjam </th>
         </tr>
         <?php 
-            while ($userAmbilData = mysqli_fetch_array($ambildata)) {
-                echo "<tr>";
-                echo "<td>" . $id = $userAmbilData['buku_id_buku'] . "</td>";
-                echo "<td>" . $judul = $userAmbilData['judul'] . "</td>";
-                echo "<td>";
-                        $data = mysqli_query($kon, "SELECT * FROM buku WHERE id_buku = '{$userAmbilData['buku_id_buku']}'");
-                        while ($row = mysqli_fetch_array($data)) {
-                            echo "<a href='javascript:void(0);' onclick=\"window.open(../../perpustakaan/aset/{$row['gambar']}', '_blank');\">
+            if ($ambildata) {
+                while ($userAmbilData = mysqli_fetch_array($ambildata)) {
+                    echo "<tr>";
+                    echo "<td>" . $id = $userAmbilData['buku_id_buku'] . "</td>";
+                    echo "<td>" . $judul = $userAmbilData['judul'] . "</td>";
+                    echo "<td>";
+                    $data = mysqli_query($kon, "SELECT * FROM buku WHERE id_buku = '{$userAmbilData['buku_id_buku']}'");
+                    while ($row = mysqli_fetch_array($data)) {
+                        echo "<a href='javascript:void(0);' onclick=\"window.open('../../perpustakaan/aset/{$row['gambar']}', '_blank');\">
                                     <img src='../../perpustakaan/aset/{$row['gambar']}' alt='Gambar Guru' width='110' height='150'></a>";
-                        }
-                    "</td>";
-                echo "<td>" . $total = $userAmbilData['total_pinjaman'] . "</td>";
-                echo "<td>|<a href='#?id=" .$userAmbilData['buku_id_buku']."'> List Peminjam </a>|</td>";
-                echo "</tr>";
+                    }
+                    echo "</td>";
+                    echo "<td>" . $total = $userAmbilData['total_pinjaman'] . "</td>";
+                    echo "<td>|<a href='#?id=" .$userAmbilData['buku_id_buku']."'> List Peminjam </a>|</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='5'>Data tidak ditemukan.</td></tr>";
             }
         ?>
     </table>
